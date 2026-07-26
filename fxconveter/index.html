@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>환율 변환기</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="card">
+    <h1>환율 변환기</h1>
+
+    <div class="field">
+      <label for="amount">금액</label>
+      <input id="amount" type="number" inputmode="decimal" min="0" step="any" placeholder="0">
+    </div>
+
+    <div class="field">
+      <label for="from">From</label>
+      <select id="from">
+        <option value="USD" selected>USD - 미국 달러</option>
+        <option value="EUR">EUR - 유로</option>
+        <option value="KRW">KRW - 대한민국 원</option>
+        <option value="JPY">JPY - 일본 엔</option>
+      </select>
+    </div>
+
+    <button id="swap-btn" type="button" class="swap" title="From과 To 통화를 교환합니다">⇅ 통화 교환</button>
+
+    <div class="field">
+      <label for="to">To</label>
+      <select id="to">
+        <option value="USD">USD - 미국 달러</option>
+        <option value="EUR">EUR - 유로</option>
+        <option value="KRW" selected>KRW - 대한민국 원</option>
+        <option value="JPY">JPY - 일본 엔</option>
+      </select>
+    </div>
+
+    <button id="convert" type="button">변환</button>
+
+    <div id="result" class="result" aria-live="polite"></div>
+  </main>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

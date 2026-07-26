@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스네이크 게임</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+    <h1>🐍 스네이크</h1>
+
+    <div class="scoreboard">
+      <div class="score-box">
+        <span class="label">점수</span>
+        <span id="score">0</span>
+      </div>
+      <div class="score-box">
+        <span class="label">최고 점수</span>
+        <span id="highScore">0</span>
+      </div>
+      <div class="score-box">
+        <span class="label">레벨</span>
+        <span id="level">1</span>
+      </div>
+    </div>
+
+    <div class="difficulty">
+      <label for="difficulty">난이도</label>
+      <select id="difficulty">
+        <option value="easy">쉬움 (200ms)</option>
+        <option value="normal" selected>보통 (150ms)</option>
+        <option value="hard">어려움 (100ms)</option>
+        <option value="extreme">매우 어려움 (50ms)</option>
+      </select>
+    </div>
+
+    <div class="board-wrap">
+      <canvas id="board" width="400" height="400"></canvas>
+
+      <div id="overlay" class="overlay">
+        <p id="overlayTitle">게임 시작을 눌러주세요</p>
+        <p id="overlayScore" class="overlay-score hidden"></p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="startBtn" type="button">게임 시작</button>
+      <button id="pauseBtn" type="button" class="hidden">일시정지</button>
+      <button id="restartBtn" type="button" class="hidden">다시 시작</button>
+    </div>
+
+    <p class="hint">방향키로 조종 · 스페이스바로 일시정지 · 50점마다 레벨업(+10ms 속도)</p>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
