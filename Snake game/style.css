@@ -1,101 +1,166 @@
+/* 기본 초기화 */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
+/* 색상/그림자 값을 한곳에서 관리 */
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-dim: #64748b;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --snake-head: #1d4ed8;
+  --snake-body: #3b82f6;
+  --food: #dc2626;
+  --grid: #e2e8f0;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* 카드를 화면 중앙에 배치 */
 body {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #12151c;
-  color: #e6e9ef;
-  font-family: "Segoe UI", "맑은 고딕", system-ui, sans-serif;
-}
-
-.game {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  min-height: 100vh;
   padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "Pretendard", "Malgun Gothic", sans-serif;
 }
 
-h1 {
-  font-size: 26px;
-  letter-spacing: 1px;
+/* 게임 카드 */
+.game {
+  width: 100%;
+  max-width: 464px;
+  padding: 32px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
 }
 
-/* 점수판 */
-.scoreboard {
+.game__title {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* 점수 영역 */
+.game__scores {
   display: flex;
   gap: 12px;
-  width: 100%;
+  margin-bottom: 16px;
 }
 
-.score-box {
+.game__score {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 10px 18px;
-  background: #1c2029;
-  border: 1px solid #2b313d;
+  padding: 12px;
+  background: var(--bg);
   border-radius: 10px;
-  font-size: 22px;
+  text-align: center;
+}
+
+.game__score-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text-dim);
+  font-size: 0.813rem;
+  font-weight: 600;
+}
+
+.game__score-value {
+  font-size: 1.375rem;
   font-weight: 700;
-  font-variant-numeric: tabular-nums;
 }
 
-.score-box .label {
-  font-size: 12px;
-  font-weight: 400;
-  color: #8b93a3;
-  letter-spacing: 1px;
-}
-
-/* 난이도 선택 */
-.difficulty {
+/* 난이도 선택 + 일시정지 버튼 */
+.game__controls {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: #a9b1c1;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
-#difficulty {
-  padding: 7px 12px;
+.game__field {
+  flex: 1;
+}
+
+.game__label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-dim);
+  font-size: 0.813rem;
+  font-weight: 600;
+}
+
+.game__select {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
   font-family: inherit;
-  font-size: 14px;
-  color: #e6e9ef;
-  background: #1c2029;
-  border: 1px solid #2b313d;
-  border-radius: 8px;
+  font-size: 0.938rem;
+}
+
+.game__select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.game__pause {
+  padding: 10px 18px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.938rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.15s ease;
 }
 
-#difficulty:focus {
-  outline: 2px solid #4ade80;
-  outline-offset: 1px;
+.game__pause:hover:not(:disabled) {
+  background: var(--border);
 }
 
-/* 캔버스 + 오버레이 */
-.board-wrap {
+.game__pause:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.game__pause:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* 보드 (오버레이의 기준 위치) */
+.game__board {
   position: relative;
-  width: 400px;
-  height: 400px;
+  margin: 0 auto;
+  max-width: 400px;
 }
 
 #board {
   display: block;
-  background: #171b23;
-  border: 2px solid #2b313d;
-  border-radius: 8px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
 }
 
-.overlay {
+/* 시작 / 게임 오버 화면 */
+.game__overlay {
   position: absolute;
   inset: 0;
   display: flex;
@@ -103,62 +168,86 @@ h1 {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: rgba(9, 11, 16, 0.78);
-  border-radius: 8px;
+  padding: 20px;
+  background: rgba(241, 245, 249, 0.92);
+  border-radius: 12px;
   text-align: center;
-  font-size: 22px;
-  font-weight: 700;
 }
 
-.overlay-score {
-  font-size: 15px;
-  font-weight: 400;
-  color: #a9b1c1;
-}
-
-.hidden {
+.game__overlay.is-hidden {
   display: none;
 }
 
-/* 버튼 */
-.controls {
-  display: flex;
-  gap: 10px;
+/* 일시정지 중에는 시작 버튼을 감춤 (일시정지 버튼으로 재개) */
+.game__overlay.is-paused .game__button {
+  display: none;
 }
 
-button {
-  padding: 10px 26px;
-  font-size: 15px;
-  font-family: inherit;
-  font-weight: 600;
-  color: #0e1116;
-  background: #4ade80;
+.game__overlay-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.game__overlay-desc {
+  margin-bottom: 8px;
+  color: var(--text-dim);
+  font-size: 0.938rem;
+}
+
+/* 시작 / 다시 시작 버튼 */
+.game__button {
+  padding: 13px 28px;
+  background: var(--accent);
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.15s ease;
 }
 
-button:hover {
-  background: #6ee7a0;
+.game__button:hover {
+  background: var(--accent-hover);
 }
 
-button:active {
-  transform: translateY(1px);
+.game__button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
 }
 
-#restartBtn,
-#pauseBtn {
-  color: #e6e9ef;
-  background: #374151;
+/* 조작 안내 */
+.game__hint {
+  margin-top: 16px;
+  color: var(--text-dim);
+  font-size: 0.875rem;
+  text-align: center;
 }
 
-#restartBtn:hover,
-#pauseBtn:hover {
-  background: #4b5563;
+/* 좁은 화면 대응 */
+@media (max-width: 480px) {
+  .game {
+    padding: 24px 20px;
+  }
+
+  .game__title {
+    font-size: 1.25rem;
+  }
+
+  .game__score-value {
+    font-size: 1.125rem;
+  }
+
+  .game__score-label {
+    font-size: 0.75rem;
+  }
 }
 
-.hint {
-  font-size: 13px;
-  color: #737b8c;
+/* 애니메이션 최소화 설정 존중 */
+@media (prefers-reduced-motion: reduce) {
+  .game__button,
+  .game__pause {
+    transition: none;
+  }
 }

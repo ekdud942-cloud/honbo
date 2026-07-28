@@ -8,51 +8,52 @@
 </head>
 <body>
   <main class="game">
-    <h1>🐍 스네이크</h1>
+    <h1 class="game__title">스네이크 게임</h1>
 
-    <div class="scoreboard">
-      <div class="score-box">
-        <span class="label">점수</span>
-        <span id="score">0</span>
+    <!-- 점수 / 최고 점수 / 레벨 -->
+    <div class="game__scores" aria-live="polite">
+      <div class="game__score">
+        <span class="game__score-label">점수</span>
+        <span class="game__score-value" id="score">0</span>
       </div>
-      <div class="score-box">
-        <span class="label">최고 점수</span>
-        <span id="highScore">0</span>
+      <div class="game__score">
+        <span class="game__score-label">최고 점수</span>
+        <span class="game__score-value" id="best-score">0</span>
       </div>
-      <div class="score-box">
-        <span class="label">레벨</span>
-        <span id="level">1</span>
+      <div class="game__score">
+        <span class="game__score-label">레벨</span>
+        <span class="game__score-value" id="level">1</span>
       </div>
     </div>
 
-    <div class="difficulty">
-      <label for="difficulty">난이도</label>
-      <select id="difficulty">
-        <option value="easy">쉬움 (200ms)</option>
-        <option value="normal" selected>보통 (150ms)</option>
-        <option value="hard">어려움 (100ms)</option>
-        <option value="extreme">매우 어려움 (50ms)</option>
-      </select>
+    <!-- 난이도 선택 / 일시정지 -->
+    <div class="game__controls">
+      <div class="game__field">
+        <label class="game__label" for="difficulty">난이도</label>
+        <select class="game__select" id="difficulty">
+          <option value="200">쉬움</option>
+          <option value="150" selected>보통</option>
+          <option value="100">어려움</option>
+          <option value="50">매우 어려움</option>
+        </select>
+      </div>
+      <button class="game__pause" id="pause-btn" type="button" disabled>일시정지</button>
     </div>
 
-    <div class="board-wrap">
+    <!-- 게임 보드 + 상태 오버레이 -->
+    <div class="game__board">
       <canvas id="board" width="400" height="400"></canvas>
 
-      <div id="overlay" class="overlay">
-        <p id="overlayTitle">게임 시작을 눌러주세요</p>
-        <p id="overlayScore" class="overlay-score hidden"></p>
+      <div class="game__overlay" id="overlay">
+        <p class="game__overlay-title" id="overlay-title">준비되셨나요?</p>
+        <p class="game__overlay-desc" id="overlay-desc">방향키로 뱀을 조종해 먹이를 드세요.</p>
+        <button class="game__button" id="start-btn" type="button">게임 시작</button>
       </div>
     </div>
 
-    <div class="controls">
-      <button id="startBtn" type="button">게임 시작</button>
-      <button id="pauseBtn" type="button" class="hidden">일시정지</button>
-      <button id="restartBtn" type="button" class="hidden">다시 시작</button>
-    </div>
-
-    <p class="hint">방향키로 조종 · 스페이스바로 일시정지 · 50점마다 레벨업(+10ms 속도)</p>
+    <p class="game__hint">방향키(↑ ↓ ← →)로 조작하세요 · 50점마다 레벨업하며 빨라집니다</p>
   </main>
 
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </body>
 </html>
