@@ -1,0 +1,453 @@
+/* ---------- 기본 ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-from: #4a90d9;
+  --bg-to: #7ec8e3;
+  --card: rgba(255, 255, 255, 0.16);
+  --card-hover: rgba(255, 255, 255, 0.24);
+  --border: rgba(255, 255, 255, 0.22);
+  --text: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.72);
+  --text-faint: rgba(255, 255, 255, 0.5);
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Malgun Gothic", "맑은 고딕", sans-serif;
+  color: var(--text);
+  background: linear-gradient(160deg, var(--bg-from) 0%, var(--bg-to) 100%);
+  background-attachment: fixed;
+  transition: background 0.8s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 날씨별 배경 테마 */
+body[data-theme="clear-day"]  { --bg-from: #2e86de; --bg-to: #74b9ff; }
+body[data-theme="clear-night"]{ --bg-from: #16213e; --bg-to: #3a4a7a; }
+body[data-theme="cloudy"]     { --bg-from: #5c6b7a; --bg-to: #97a8b8; }
+body[data-theme="rain"]       { --bg-from: #3d5166; --bg-to: #6b8299; }
+body[data-theme="snow"]       { --bg-from: #6b7f95; --bg-to: #b8c9d6; }
+body[data-theme="storm"]      { --bg-from: #2b2d42; --bg-to: #5c5f7a; }
+body[data-theme="fog"]        { --bg-from: #6e7a80; --bg-to: #a8b3b8; }
+
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* ---------- 검색 ---------- */
+.search-bar {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 14px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.2s;
+}
+
+.search-box:focus-within {
+  background: var(--card-hover);
+}
+
+.search-icon,
+.locate-btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.search-icon {
+  color: var(--text-dim);
+}
+
+#search-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+#search-input::placeholder {
+  color: var(--text-faint);
+}
+
+.locate-btn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  border-radius: 9px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.locate-btn:hover {
+  background: var(--card-hover);
+  color: var(--text);
+}
+
+.locate-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* 자동완성 */
+.suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  list-style: none;
+  background: rgba(30, 45, 65, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+}
+
+.suggestions li {
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 0.94rem;
+  transition: background 0.15s;
+}
+
+.suggestions li:hover,
+.suggestions li.active {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.suggestions .sug-region {
+  color: var(--text-faint);
+  font-size: 0.82rem;
+  margin-left: 8px;
+}
+
+/* ---------- 상태 ---------- */
+.status {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.status.error {
+  color: #ffd6d6;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 14px;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- 현재 날씨 ---------- */
+.content {
+  animation: fade-up 0.45s ease;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.current {
+  text-align: center;
+  padding: 8px 0 28px;
+}
+
+.place {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.updated {
+  margin-top: 4px;
+  font-size: 0.82rem;
+  color: var(--text-faint);
+}
+
+.current-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 14px 0 4px;
+}
+
+.current-icon {
+  font-size: 4.5rem;
+  line-height: 1;
+}
+
+.current-temp {
+  font-size: 5rem;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.current-temp .deg {
+  font-weight: 200;
+  opacity: 0.65;
+}
+
+.condition {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+}
+
+.range {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+.range .sep {
+  opacity: 0.4;
+  margin: 0 2px;
+}
+
+.range .feels {
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid var(--border);
+}
+
+/* ---------- 상세 지표 ---------- */
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.detail-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.detail-label {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.detail-value {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+/* ---------- 패널 공통 ---------- */
+.panel {
+  margin-bottom: 20px;
+  padding: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+}
+
+/* ---------- 시간별 ---------- */
+.hourly-scroll {
+  overflow-x: auto;
+  margin: 0 -18px;
+  padding: 0 18px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.hourly-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.hourly-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.hourly {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+  padding-bottom: 8px;
+}
+
+.hourly li {
+  flex: 0 0 auto;
+  width: 62px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 4px;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.hourly li.now {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.hour-time {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.hour-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.hour-temp {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.hour-pop {
+  font-size: 0.7rem;
+  color: #a8d8ff;
+  min-height: 1em;
+}
+
+/* ---------- 주간 ---------- */
+.daily {
+  list-style: none;
+}
+
+.daily li {
+  display: grid;
+  grid-template-columns: 52px 30px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.daily li:last-child {
+  border-bottom: none;
+}
+
+.day-name {
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.day-name.weekend-sat { color: #a8d8ff; }
+.day-name.weekend-sun { color: #ffb3b3; }
+
+.day-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+  text-align: center;
+}
+
+/* 최저~최고 온도 막대 */
+.day-bar {
+  position: relative;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+}
+
+.day-bar span {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #7ec8e3, #ffd08a, #ff9a6b);
+}
+
+.day-temps {
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.day-temps .min {
+  color: var(--text-faint);
+}
+
+.day-temps .max {
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+/* ---------- 푸터 ---------- */
+.credit {
+  margin-top: 28px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ---------- 반응형 ---------- */
+@media (max-width: 420px) {
+  .app { padding: 18px 14px 36px; }
+  .current-temp { font-size: 4rem; }
+  .current-icon { font-size: 3.5rem; }
+  .details { grid-template-columns: repeat(2, 1fr); }
+  .daily li { grid-template-columns: 46px 26px 1fr auto; gap: 8px; }
+}

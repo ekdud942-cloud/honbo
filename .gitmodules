@@ -1,3 +1,3 @@
-[submodule "My-todo-app"]
-	path = My-todo-app
-	url = https://github.com/bridgeaiedu-jsu/My-todo-app.git
+[submodule "My-Portfolio/Snake game"]
+	path = My-Portfolio/Snake game
+	url = https://github.com/bridgeaiedu-jsu/Snake-game-app.git

@@ -1,129 +1,175 @@
+/* 기본 초기화 */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
+/* 색상/그림자 값을 한곳에서 관리 */
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-dim: #64748b;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --error: #dc2626;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* 카드를 화면 중앙에 배치 */
 body {
-  margin: 0;
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  font-family: "Segoe UI", "Malgun Gothic", system-ui, sans-serif;
-  background: #f1f5f9;
-  color: #1e293b;
+  min-height: 100vh;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "Pretendard", "Malgun Gothic", sans-serif;
 }
 
-.card {
+/* 변환기 카드 */
+.converter {
   width: 100%;
   max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1.75rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+  padding: 32px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
 }
 
-h1 {
-  margin: 0;
-  font-size: 1.35rem;
+.converter__title {
+  margin-bottom: 24px;
+  font-size: 1.5rem;
   text-align: center;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+/* 라벨 + 입력 요소 묶음 */
+.converter__field {
+  margin-bottom: 16px;
 }
 
-label {
-  font-size: 0.85rem;
+.converter__label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-dim);
+  font-size: 0.875rem;
   font-weight: 600;
-  color: #475569;
 }
 
-input,
-select {
+/* 입력창과 드롭다운의 공통 형태 */
+.converter__input,
+.converter__select {
   width: 100%;
-  padding: 0.65rem 0.75rem;
-  font-size: 1rem;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
   font-family: inherit;
-  color: inherit;
-  background: #fff;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  font-size: 1rem;
 }
 
-input:focus,
-select:focus {
-  outline: 2px solid #2563eb;
-  outline-offset: 1px;
-  border-color: #2563eb;
+.converter__input:focus,
+.converter__select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
-button {
-  padding: 0.75rem;
-  font-size: 1rem;
+/* 통화 교환 버튼 (From / To 사이) */
+.converter__swap {
+  display: block;
+  margin: 0 auto 16px;
+  padding: 8px 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-dim);
   font-family: inherit;
+  font-size: 0.875rem;
   font-weight: 600;
-  color: #fff;
-  background: #2563eb;
-  border: none;
-  border-radius: 8px;
   cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
-button:hover:not(:disabled) {
-  background: #1d4ed8;
+.converter__swap:hover {
+  background: var(--border);
+  color: var(--text);
 }
 
-button:disabled {
-  background: #94a3b8;
+.converter__swap:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* 변환 버튼 */
+.converter__button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px;
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.converter__button:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.converter__button:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
-button.swap {
-  align-self: center;
-  padding: 0.4rem 0.9rem;
-  font-size: 0.85rem;
-  color: #2563eb;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-}
-
-button.swap:hover:not(:disabled) {
-  background: #dbeafe;
-}
-
-.result {
-  min-height: 1.5rem;
-  padding: 0.75rem;
-  font-size: 1.05rem;
+/* 결과 표시 영역 (내용이 없으면 숨김) */
+.converter__result {
+  margin-top: 20px;
+  padding: 16px;
+  background: var(--bg);
+  border-radius: 10px;
+  font-size: 1.125rem;
   font-weight: 600;
   text-align: center;
-  background: #f8fafc;
-  border: 1px dashed #cbd5e1;
-  border-radius: 8px;
   word-break: break-word;
 }
 
-.result:empty {
+.converter__result:empty {
   display: none;
 }
 
-.result .rate {
-  display: block;
-  margin-top: 0.35rem;
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: #64748b;
+/* 오류 상태 */
+.converter__result.is-error {
+  color: var(--error);
+  font-size: 0.938rem;
+  font-weight: 500;
 }
 
-.result.error {
-  color: #b91c1c;
-  font-weight: 500;
-  background: #fef2f2;
-  border-color: #fecaca;
+/* 좁은 화면 대응 */
+@media (max-width: 480px) {
+  .converter {
+    padding: 24px 20px;
+  }
+
+  .converter__title {
+    font-size: 1.25rem;
+  }
+}
+
+/* 애니메이션 최소화 설정 존중 */
+@media (prefers-reduced-motion: reduce) {
+  .converter__button,
+  .converter__swap {
+    transition: none;
+  }
 }

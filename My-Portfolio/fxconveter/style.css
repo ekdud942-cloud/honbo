@@ -1,0 +1,175 @@
+/* 기본 초기화 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 색상/그림자 값을 한곳에서 관리 */
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-dim: #64748b;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --error: #dc2626;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* 카드를 화면 중앙에 배치 */
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "Pretendard", "Malgun Gothic", sans-serif;
+}
+
+/* 변환기 카드 */
+.converter {
+  width: 100%;
+  max-width: 400px;
+  padding: 32px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.converter__title {
+  margin-bottom: 24px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* 라벨 + 입력 요소 묶음 */
+.converter__field {
+  margin-bottom: 16px;
+}
+
+.converter__label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-dim);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* 입력창과 드롭다운의 공통 형태 */
+.converter__input,
+.converter__select {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.converter__input:focus,
+.converter__select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* 통화 교환 버튼 (From / To 사이) */
+.converter__swap {
+  display: block;
+  margin: 0 auto 16px;
+  padding: 8px 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.converter__swap:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+.converter__swap:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* 변환 버튼 */
+.converter__button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px;
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.converter__button:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.converter__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 결과 표시 영역 (내용이 없으면 숨김) */
+.converter__result {
+  margin-top: 20px;
+  padding: 16px;
+  background: var(--bg);
+  border-radius: 10px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-align: center;
+  word-break: break-word;
+}
+
+.converter__result:empty {
+  display: none;
+}
+
+/* 오류 상태 */
+.converter__result.is-error {
+  color: var(--error);
+  font-size: 0.938rem;
+  font-weight: 500;
+}
+
+/* 좁은 화면 대응 */
+@media (max-width: 480px) {
+  .converter {
+    padding: 24px 20px;
+  }
+
+  .converter__title {
+    font-size: 1.25rem;
+  }
+}
+
+/* 애니메이션 최소화 설정 존중 */
+@media (prefers-reduced-motion: reduce) {
+  .converter__button,
+  .converter__swap {
+    transition: none;
+  }
+}

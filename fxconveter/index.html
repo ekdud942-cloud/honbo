@@ -1,35 +1,51 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>환율 변환기</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="card">
-    <h1>환율 변환기</h1>
+  <main class="converter">
+    <h1 class="converter__title">환율 변환기</h1>
 
-    <div class="field">
-      <label for="amount">금액</label>
-      <input id="amount" type="number" inputmode="decimal" min="0" step="any" placeholder="0">
+    <!-- 금액 입력 -->
+    <div class="converter__field">
+      <label class="converter__label" for="amount">금액</label>
+      <input
+        class="converter__input"
+        id="amount"
+        type="number"
+        min="0"
+        step="any"
+        inputmode="decimal"
+        placeholder="금액을 입력하세요"
+      >
     </div>
 
-    <div class="field">
-      <label for="from">From</label>
-      <select id="from">
-        <option value="USD" selected>USD - 미국 달러</option>
+    <!-- 변환할 통화 선택 -->
+    <div class="converter__field">
+      <label class="converter__label" for="from">From</label>
+      <select class="converter__select" id="from">
+        <option value="USD">USD - 미국 달러</option>
         <option value="EUR">EUR - 유로</option>
         <option value="KRW">KRW - 대한민국 원</option>
         <option value="JPY">JPY - 일본 엔</option>
       </select>
     </div>
 
-    <button id="swap-btn" type="button" class="swap" title="From과 To 통화를 교환합니다">⇅ 통화 교환</button>
+    <!-- 통화 교환 버튼 -->
+    <button
+      class="converter__swap"
+      id="swap-btn"
+      type="button"
+      aria-label="From과 To 통화 교환"
+    >⇅ 통화 교환</button>
 
-    <div class="field">
-      <label for="to">To</label>
-      <select id="to">
+    <div class="converter__field">
+      <label class="converter__label" for="to">To</label>
+      <select class="converter__select" id="to">
         <option value="USD">USD - 미국 달러</option>
         <option value="EUR">EUR - 유로</option>
         <option value="KRW" selected>KRW - 대한민국 원</option>
@@ -37,9 +53,11 @@
       </select>
     </div>
 
-    <button id="convert" type="button">변환</button>
+    <!-- 변환 버튼 -->
+    <button class="converter__button" id="convert" type="button">변환하기</button>
 
-    <div id="result" class="result" aria-live="polite"></div>
+    <!-- 결과 표시 영역 -->
+    <div class="converter__result" id="result" aria-live="polite"></div>
   </main>
 
   <script src="main.js" defer></script>
