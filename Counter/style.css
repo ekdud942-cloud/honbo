@@ -1,0 +1,63 @@
+/* 화면 전체를 중앙 정렬 */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f5fb;
+  font-family: "Pretendard", "Malgun Gothic", sans-serif;
+}
+
+.counter {
+  text-align: center;
+}
+
+/* 큰 숫자 */
+.count {
+  font-size: 8rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 32px;
+}
+
+/* 양수: 초록 */
+.count.positive {
+  color: #2e9e5b;
+}
+
+/* 음수: 빨강 */
+.count.negative {
+  color: #e03e3e;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+button {
+  min-width: 72px;
+  padding: 14px 24px;
+  font-size: 1.5rem;
+  color: #fff;
+  background: #667eea;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #5568d3;
+}
+
+/* 리셋 버튼은 다른 색으로 구분 */
+#reset {
+  background: #999;
+}
+
+#reset:hover {
+  background: #777;
+}

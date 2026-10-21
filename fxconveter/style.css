@@ -1,175 +1,124 @@
-/* 기본 초기화 */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-/* 색상/그림자 값을 한곳에서 관리 */
-:root {
-  --bg: #f1f5f9;
-  --card: #ffffff;
-  --border: #e2e8f0;
-  --text: #1e293b;
-  --text-dim: #64748b;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --error: #dc2626;
-  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-}
-
-/* 카드를 화면 중앙에 배치 */
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   min-height: 100vh;
-  padding: 24px;
-  background: var(--bg);
-  color: var(--text);
-  font-family: "Segoe UI", "Pretendard", "Malgun Gothic", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 16px;
+  background: linear-gradient(135deg, #ecfeff 0%, #f8fafc 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  color: #1e293b;
 }
 
-/* 변환기 카드 */
-.converter {
+.card {
   width: 100%;
-  max-width: 400px;
-  padding: 32px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
+  max-width: 440px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
 
-.converter__title {
-  margin-bottom: 24px;
-  font-size: 1.5rem;
+.title {
   text-align: center;
+  font-size: 1.6rem;
+  margin-bottom: 24px;
 }
 
-/* 라벨 + 입력 요소 묶음 */
-.converter__field {
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
   margin-bottom: 16px;
-}
-
-.converter__label {
-  display: block;
-  margin-bottom: 6px;
-  color: var(--text-dim);
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 600;
+  color: #475569;
 }
 
-/* 입력창과 드롭다운의 공통 형태 */
-.converter__input,
-.converter__select {
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.swap-btn {
+  align-self: flex-end;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #0891b2;
+  background: #ecfeff;
+  border: 1.5px solid #a5f3fc;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.swap-btn:hover {
+  background: #cffafe;
+}
+
+input,
+select {
   width: 100%;
   padding: 12px 14px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  color: var(--text);
-  font-family: inherit;
   font-size: 1rem;
-}
-
-.converter__input:focus,
-.converter__select:focus {
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* 통화 교환 버튼 (From / To 사이) */
-.converter__swap {
-  display: block;
-  margin: 0 auto 16px;
-  padding: 8px 16px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--text-dim);
-  font-family: inherit;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+input:focus,
+select:focus {
+  border-color: #0891b2;
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.15);
 }
 
-.converter__swap:hover {
-  background: var(--border);
-  color: var(--text);
-}
-
-.converter__swap:focus-visible {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
-/* 변환 버튼 */
-.converter__button {
+.convert-btn {
   width: 100%;
-  margin-top: 8px;
   padding: 13px;
-  background: var(--accent);
-  border: none;
-  border-radius: 10px;
-  color: #ffffff;
-  font-family: inherit;
   font-size: 1rem;
   font-weight: 600;
+  color: #fff;
+  background: #0891b2;
+  border: none;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.2s;
 }
 
-.converter__button:hover:not(:disabled) {
-  background: var(--accent-hover);
+.convert-btn:hover:not(:disabled) {
+  background: #0e7490;
 }
 
-.converter__button:disabled {
+.convert-btn:disabled {
   opacity: 0.6;
-  cursor: not-allowed;
+  cursor: wait;
 }
 
-/* 결과 표시 영역 (내용이 없으면 숨김) */
-.converter__result {
+.result {
   margin-top: 20px;
-  padding: 16px;
-  background: var(--bg);
-  border-radius: 10px;
-  font-size: 1.125rem;
-  font-weight: 600;
   text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
   word-break: break-word;
 }
 
-.converter__result:empty {
+.result:empty {
   display: none;
 }
 
-/* 오류 상태 */
-.converter__result.is-error {
-  color: var(--error);
-  font-size: 0.938rem;
-  font-weight: 500;
-}
-
-/* 좁은 화면 대응 */
-@media (max-width: 480px) {
-  .converter {
-    padding: 24px 20px;
-  }
-
-  .converter__title {
-    font-size: 1.25rem;
-  }
-}
-
-/* 애니메이션 최소화 설정 존중 */
-@media (prefers-reduced-motion: reduce) {
-  .converter__button,
-  .converter__swap {
-    transition: none;
-  }
+.result.error {
+  font-size: 1rem;
+  color: #ef4444;
 }

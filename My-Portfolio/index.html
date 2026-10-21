@@ -1,81 +1,26 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>My Portfolio</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>황다영 | 자기소개</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="bg-grid"></div>
-  <div class="glow glow-1"></div>
-  <div class="glow glow-2"></div>
-
-  <header class="hero">
-    <p class="eyebrow">PROJECT SHOWCASE</p>
-    <h1>MY <span class="gradient-text">PORTFOLIO</span></h1>
-    <p class="subtitle">세 가지 프로젝트를 클릭해서 확인해보세요</p>
-  </header>
-
-  <main class="scene">
-    <svg class="connector-lines" id="connectorLines" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#6ee7ff" />
-          <stop offset="50%" stop-color="#a78bfa" />
-          <stop offset="100%" stop-color="#f472b6" />
-        </linearGradient>
-      </defs>
-      <path id="pathA" class="connector-path" />
-      <path id="pathB" class="connector-path" />
-    </svg>
-
-    <div class="cards">
-      <a class="card card-fx" href="../fxconveter/index.html" data-float-delay="0">
-        <div class="card-inner">
-          <div class="card-face card-top"></div>
-          <div class="card-face card-side"></div>
-          <div class="card-face card-front">
-            <div class="icon">💱</div>
-            <h2>환율 변환기</h2>
-            <p>실시간 환율 기반으로 금액을 변환해주는 웹 앱입니다.</p>
-            <span class="go">바로가기 →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="card card-snake" href="../Snake%20game/index.html" data-float-delay="0.6">
-        <div class="card-inner">
-          <div class="card-face card-top"></div>
-          <div class="card-face card-side"></div>
-          <div class="card-face card-front">
-            <div class="icon">🐍</div>
-            <h2>스네이크 게임</h2>
-            <p>방향키로 조작하는 클래식 스네이크 게임입니다.</p>
-            <span class="go">바로가기 →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="card card-promo" href="https://github.com/bridgeaiedu-jsu/auto-generate-app" target="_blank" rel="noopener" data-float-delay="1.2">
-        <div class="card-inner">
-          <div class="card-face card-top"></div>
-          <div class="card-face card-side"></div>
-          <div class="card-face card-front">
-            <div class="icon">📢</div>
-            <h2>홍보자동화</h2>
-            <p>가게 사진과 홍보 문구를 자동으로 만들어주는 도구입니다.</p>
-            <span class="go">GitHub에서 보기 →</span>
-          </div>
-        </div>
-      </a>
+  <div class="card">
+    <img class="avatar" src="profile.png" alt="황다영 프로필 사진">
+    <h1 class="name">황다영</h1>
+    <div class="info">
+      <div class="row">
+        <span class="label">직업</span>
+        <span class="value">데이래쉬</span>
+      </div>
+      <div class="row">
+        <span class="label">취미</span>
+        <span class="value">바이브코딩</span>
+      </div>
     </div>
-  </main>
-
-  <footer class="site-footer">
-    <p>Built with vibe coding ✨</p>
-  </footer>
-
+  </div>
   <script src="main.js"></script>
 </body>
 </html>

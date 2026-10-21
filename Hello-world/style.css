@@ -1,31 +1,8 @@
 body {
-  margin: 0;
+  background: linear-gradient(to bottom, skyblue, darkblue);
+  background-attachment: fixed;
+  color: white;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  background: linear-gradient(to bottom, skyblue, #003a8c);
-  color: #ffffff;
-}
-
-h1 {
-  font-size: 3rem;
-}
-
-button {
-  padding: 0.75rem 2rem;
-  font-size: 1.125rem;
-  font-family: inherit;
-  color: #003a8c;
-  background: #ffffff;
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #e6f0ff;
+  margin: 0;
+  padding: 1rem;
 }

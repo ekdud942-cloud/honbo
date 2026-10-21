@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>나의 할 일 목록</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app">
-    <h1>나의 할 일 목록</h1>
+  <main class="card">
+    <h1 class="title">나의 할 일 목록</h1>
 
-    <div class="input-area">
-      <input type="text" id="todo-input" placeholder="할 일을 입력하세요" />
-      <button id="add-btn">추가</button>
+    <form class="todo-form" onsubmit="return false;">
+      <input type="text" id="todo-input" class="todo-input" placeholder="할 일을 입력하세요" autocomplete="off">
+      <button type="submit" id="add-btn" class="add-btn">추가</button>
+    </form>
+
+    <div class="filters" id="filters">
+      <button type="button" class="filter-btn active" data-filter="all">전체</button>
+      <button type="button" class="filter-btn" data-filter="active">진행중</button>
+      <button type="button" class="filter-btn" data-filter="completed">완료</button>
     </div>
 
-    <div class="filter-area" id="filter-area">
-      <button class="filter-btn active" data-filter="all">전체</button>
-      <button class="filter-btn" data-filter="active">진행중</button>
-      <button class="filter-btn" data-filter="completed">완료</button>
+    <div class="list-info">
+      <p id="todo-count" class="todo-count">전체 0개, 완료 0개</p>
+      <button type="button" id="clear-completed-btn" class="clear-btn">완료된 항목 삭제</button>
     </div>
 
-    <ul class="todo-list" id="todo-list">
-      <!-- 할 일 항목은 비어 있습니다 -->
-    </ul>
-
-    <div class="todo-footer">
-      <div class="todo-summary" id="todo-summary">전체 0개 · 완료 0개</div>
-      <button id="clear-completed-btn">완료된 항목 삭제</button>
-    </div>
-  </div>
+    <ul id="todo-list" class="todo-list"></ul>
+  </main>
 
   <script src="main.js"></script>
 </body>

@@ -1,0 +1,78 @@
+/* 화면 전체를 중앙 정렬 + 파랑 그라데이션 배경 */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4facfe 0%, #1d4ed8 55%, #0b1f5c 100%);
+  font-family: "Pretendard", "Malgun Gothic", sans-serif;
+}
+
+.counter {
+  text-align: center;
+}
+
+/* 크고 굵은 숫자 */
+.count {
+  font-size: 10rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+  margin-bottom: 48px;
+  text-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  transition: color 0.2s;
+}
+
+/* 양수: 초록 (파랑 배경에서 잘 보이는 밝은 톤) */
+.count.positive {
+  color: #6ee7a0;
+}
+
+/* 음수: 빨강 */
+.count.negative {
+  color: #ff8a8a;
+}
+
+/* 별 모양은 clip-path로 box-shadow가 잘리므로 컨테이너에 drop-shadow 적용 */
+.buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.35));
+}
+
+/* 별모양 버튼 */
+button {
+  width: 104px;
+  height: 104px;
+  padding: 10px 0 0;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0b1f5c;
+  background: linear-gradient(160deg, #ffe985, #ffc107);
+  border: none;
+  cursor: pointer;
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
+    50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+  );
+  transition: transform 0.2s, filter 0.2s;
+}
+
+/* 호버: 살짝 커지며 위로 뜨고 밝아짐 */
+button:hover {
+  transform: translateY(-6px) scale(1.12);
+  filter: brightness(1.1);
+}
+
+button:active {
+  transform: translateY(-2px) scale(1.04);
+}
+
+/* 리셋 버튼은 흰색 별로 구분 */
+#reset {
+  font-size: 1.05rem;
+  background: linear-gradient(160deg, #ffffff, #cfe0ff);
+}
