@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>바이브코딩 클로드 실습</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2430;
+      --muted: #6b7280;
+      --accent: #4f46e5;
+      --border: #e5e7eb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #12141a;
+        --card: #1c1f28;
+        --text: #eceef3;
+        --muted: #9aa1b0;
+        --accent: #8b87ff;
+        --border: #2b2f3b;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Pretendard", "Malgun Gothic", system-ui, sans-serif;
+      line-height: 1.6;
+    }
+    main { max-width: 960px; margin: 0 auto; padding: 56px 16px 72px; }
+    h1 { margin: 0 0 8px; font-size: 2rem; }
+    .lead { margin: 0 0 40px; color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      display: block;
+      padding: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: inherit;
+      text-decoration: none;
+      transition: transform .15s, border-color .15s;
+    }
+    .card:hover, .card:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+    .card h2 { margin: 0 0 6px; font-size: 1.1rem; }
+    .card p { margin: 0 0 12px; color: var(--muted); font-size: .92rem; }
+    .go { color: var(--accent); font-size: .9rem; font-weight: 600; }
+    footer { margin-top: 48px; color: var(--muted); font-size: .9rem; }
+    footer a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>바이브코딩 클로드 실습</h1>
+    <p class="lead">Claude Code로 만들어 본 작은 웹 앱 모음입니다. 카드를 눌러 바로 실행해 보세요.</p>
+
+    <div class="grid">
+      <a class="card" href="To%20do/">
+        <h2>할 일 목록</h2>
+        <p>할 일 추가·완료·삭제, 필터, 자동 저장까지 되는 Todo 앱</p>
+        <span class="go">열기 →</span>
+      </a>
+      <a class="card" href="Snake%20game/">
+        <h2>스네이크 게임</h2>
+        <p>방향키로 즐기는 클래식 스네이크 게임</p>
+        <span class="go">열기 →</span>
+      </a>
+      <a class="card" href="fxconveter/">
+        <h2>환율 변환기</h2>
+        <p>금액을 입력하면 환율로 바꿔 주는 변환기</p>
+        <span class="go">열기 →</span>
+      </a>
+      <a class="card" href="My-Portfolio/">
+        <h2>자기소개 포트폴리오</h2>
+        <p>나를 소개하는 포트폴리오 페이지</p>
+        <span class="go">열기 →</span>
+      </a>
+      <a class="card" href="Counter/">
+        <h2>카운터</h2>
+        <p>숫자를 올리고 내리는 간단한 카운터 앱</p>
+        <span class="go">열기 →</span>
+      </a>
+      <a class="card" href="Hello-world/">
+        <h2>Hello World</h2>
+        <p>처음 만든 웹 페이지</p>
+        <span class="go">열기 →</span>
+      </a>
+    </div>
+
+    <footer>
+      소스 코드: <a href="https://github.com/ekdud942-cloud/honbo">github.com/ekdud942-cloud/honbo</a>
+    </footer>
+  </main>
+</body>
+</html>
